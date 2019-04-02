@@ -1,38 +1,32 @@
-package phil.fsst;
-
 public class Main {
-
     public static void main(String[] args) {
 
-        CGegenstand W1 = new CGegenstand("Dunkelschwert",10,20, 0,20,100);
-
-        klassenAuswahl(W1);
-
-        System.out.println(W1.getCGegenstand());
+        CGegenstand Dunkelschwert = new CGegenstand("Dunkelschwert",25,20,0,20,100);
+        CGegenstand Goldschwert = new CGegenstand("Goldschwert",10,20,0,20,100);
+        CGegenstand Zombieschnetzler = new CGegenstand("Zombieschnetzler",10,20, 0,20,100);
+        CGegenstand Java = new CGegenstand("Java",100,0,0,20,100);
 
         CInventar backpack = new CInventar();
         CInventar GB1 = new CInventar();
-        CInventar GB2 = new CInventar();
+                
+        System.out.print("-----Inventar-----");
 
-        backpack.ItemIntoInv(W1);
+        backpack.ItemIntoInv(Dunkelschwert);
+        backpack.ItemIntoInv(Goldschwert);
+        backpack.ItemIntoInv(Zombieschnetzler);
+        backpack.ItemIntoInv(Java);
 
         System.out.println(backpack.toString());
 
         backpack.PrintInv();
 
-        Cnpc G1 = new Cnpc("Pigman",100,50,0,GB1);
-        Cnpc G2 = new Cnpc("Kekman",100,50,0,GB2);
+        Cnpc Max = new Cnpc("Max",100,50,GB1,10);
+        CMonster Kekman = new CMonster("Kekman",100,50,Dunkelschwert,8);
 
-        System.out.println(G1.toString());
-
-
-    }
-
-    public static int klassenAuswahl(CGegenstand KampfItem){
-        System.out.println(KampfItem.getAGW() + " " + KampfItem.getVTW() + " " + KampfItem.getHW() + " " + KampfItem.getGW());
-
-
-        return 1;
+        System.out.println("------Print Max-----");
+        System.out.println(Max.toString());
+        System.out.println("------Print Kekman-----");
+        System.out.println(Kekman.toString());
     }
 }
 

@@ -1,5 +1,3 @@
-package phil.fsst;
-
 public class CGegenstand {
 
     public String BZ; //Bezeichnung

@@ -1,5 +1,3 @@
-package phil.fsst;
-
 import javax.naming.Name;
 import javax.naming.NameNotFoundException;
 
@@ -12,7 +10,7 @@ public class Cnpc {
     public CInventar bp;
 
 
-    public Cnpc(String Namen, int MaxLeben, int Leben, int Level ,CInventar bp) {
+    public Cnpc(String Namen, int MaxLeben, int Leben,CInventar bp, int Level ) {
         this.Namen = Namen;
         this.MaxLeben = MaxLeben;
         this.Leben = Leben;
@@ -23,12 +21,12 @@ public class Cnpc {
 
     @Override
     public String toString() {
-        return  "   Name: " + Namen +
+        return  "Name: " + Namen +
                 " \nMaxLeben: " + MaxLeben +
                 " \nLeben: " + Leben +
                 " \nZugeordnetes Invetar: " + bp +
                 " \nLevel: " + Level +
-                " \nExperiance Points" + expiriencePoints;
+                " \nExperiance Points: " + expiriencePoints;
     }
 
     public CInventar getBp() {
