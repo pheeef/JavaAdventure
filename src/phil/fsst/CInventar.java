@@ -1,3 +1,5 @@
+package phil.fsst;
+
 public class CInventar {
     public int place;        // Anzahl der Plätze im Inventar
     public int gew = 0;         // Maximales Gewicht
@@ -13,7 +15,7 @@ public class CInventar {
     }
 
     public CGegenstand fetchItem(CInventar Inventar, int InvPlatz) {
-        Cgegenstand returnItem = bp[InvPlatz];
+        CGegenstand returnItem = bp[InvPlatz];
         return returnItem;
     }
 
