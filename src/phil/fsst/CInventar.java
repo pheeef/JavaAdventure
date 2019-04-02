@@ -15,9 +15,10 @@ public class CInventar {
     }
 
     public CGegenstand fetchItem(CInventar Inventar, int InvPlatz) {
-        CGegenstand returnItem = bp[InvPlatz];
+        CGegenstand returnItem = Inventar.bp[InvPlatz];
         return returnItem;
     }
+
 
     public CInventar() {
         place = 20;

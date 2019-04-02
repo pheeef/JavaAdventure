@@ -9,40 +9,46 @@ public class Kampf{
     public boolean usedAgriff = false;
     public boolean usedVerteidigung = false;
     public boolean usedHeilwert = false;
+    Scanner scan = new Scanner(System.in);
 
-	//ITEM Auswählen, 
+
+    //ITEM Auswählen,
 	// While{-Kategorie Wählen, -Vergleich, -Schaden zufügen}do(leben <= 0)
     //Feststellen wer gewonnen hat und experinance points verteilen
     
-    public CGegenstand itemAuswahl(CInventar userInventory){
+    private CGegenstand itemAuswahl(CInventar userInventory){
 
-        Scanner scan = new Scanner(System.in);
-
-        bp.PrintInv();
+        userInventory.PrintInv();
 
         int ItemAuswahl = scan.nextInt();
         CGegenstand KampfItem = new CGegenstand();
 
-        KampfItem = userInventory[ItemAuswahl];
+        KampfItem = userInventory.bp[ItemAuswahl];
 
-        System.out.println(userInventory[ItemAuswahl].getName());
-        
+        userInventory.PrintInv();
+
         return KampfItem;
     }
     
     public int klassenAuswahl (CGegenstand KampfItem){
-        String[] auswahl = {KampfItem.getAGW,KampfItem.getVTW, KampfItem.HW, KampfItem.GW};
-        int Auswahl = scan.nextInt();
 
-        for(int i = 0; i < auswahl.length; i++){
-            System.out.println(String[i]);
-        }
-        
-        
+        int AGW = KampfItem.getAGW();
+        int VTW = KampfItem.getVTW();
+        int HW = KampfItem.getHW();
 
-        if(Auswahl == 0 && !usedAgriff)return KampfItem.getAGW(); //Spieler hat Angriff gewäht und noch nicht verbraucht
-        if(Auswahl == 1 && !usedVerteidigung)return KampfItem.getVTW(); //Spieler hat Verteidigung gewählt und noch nicht verbraucht
-        if(Auswahl == 2 && !usedHeilwert)return KampfItem.getHW(); //Spieler hat Heilung gewählt und noch nicht verbraucht
+        int[] Auswahl = {AGW,VTW,HW};
+
+        if(!usedAgriff)System.out.println("[0] Angriffswert: "  + Auswahl[0]);
+        if(!usedVerteidigung)System.out.println("[1] Verteidigung: "  + Auswahl[1]);
+        if(!usedHeilwert)System.out.println("[2] Heilwert: "  + Auswahl[2]);
+
+        int input = scan.nextInt();
+
+        if(input == 0 && !usedAgriff)return KampfItem.getAGW(); //Spieler hat Angriff gewäht und noch nicht verbraucht
+        if(input == 1 && !usedVerteidigung)return KampfItem.getVTW(); //Spieler hat Verteidigung gewählt und noch nicht verbraucht
+        if(input == 2 && !usedHeilwert)return KampfItem.getHW(); //Spieler hat Heilung gewählt und noch nicht verbraucht
+
+        return input;
     }
 
     public void startFight(Cnpc Player1, CMonster Player2){
