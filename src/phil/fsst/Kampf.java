@@ -2,19 +2,25 @@ package phil.fsst;
 
 import java.util.*;
 
-public class Kampf{
+import static java.lang.Math.random;
 
+public class Kampf{
 
 
     public boolean usedAgriff = false;
     public boolean usedVerteidigung = false;
     public boolean usedHeilwert = false;
     Scanner scan = new Scanner(System.in);
+    Random rand;
+
 
 
     //ITEM Auswählen,
 	// While{-Kategorie Wählen, -Vergleich, -Schaden zufügen}do(leben <= 0)
     //Feststellen wer gewonnen hat und experinance points verteilen
+
+    public Kampf() {
+    }
     
     private CGegenstand itemAuswahl(CInventar userInventory){
 
@@ -42,6 +48,8 @@ public class Kampf{
         if(!usedVerteidigung)System.out.println("[1] Verteidigung: "  + Auswahl[1]);
         if(!usedHeilwert)System.out.println("[2] Heilwert: "  + Auswahl[2]);
 
+        System.out.println("Wähle ein Attribut deiner Waffe:");
+
         int input = scan.nextInt();
 
         if(input == 0 && !usedAgriff)return KampfItem.getAGW(); //Spieler hat Angriff gewäht und noch nicht verbraucht
@@ -51,7 +59,22 @@ public class Kampf{
         return input;
     }
 
+    public int klassenAuswahlMonster(CGegenstand KampfItem) {
+
+        int AGW = KampfItem.getAGW();
+        int VTW = KampfItem.getVTW();
+        int HW = KampfItem.getHW();
+
+        int input = rand.nextInt(2 + 1);
+
+        return 1;
+    }
+
     public void startFight(Cnpc Player1, CMonster Player2){
+
+        System.out.println("---------------");
+        System.out.println("Started Fight!");
+
         CGegenstand lastItemPlayer1 = itemAuswahl(Player1.getBp());
         CGegenstand lastItemPlayer2 = Player2.getWaffe();
 

@@ -29,6 +29,11 @@ public class Main {
         System.out.println(Max.toString());
         System.out.println("------Print Kekman-----");
         System.out.println(Kekman.toString());
+
+        Kampf Main = new Kampf();
+
+        Main.startFight(Max, Kekman);
+
     }
 }
 
