@@ -10,7 +10,7 @@ public class Kampf{
     public boolean usedAgriff = false;
     public boolean usedVerteidigung = false;
     public boolean usedHeilwert = false;
-    Scanner scan = new Scanner(System.in);
+    public Scanner scan = new Scanner(System.in);
     Random rand;
 
 
@@ -67,21 +67,26 @@ public class Kampf{
 
         int input = rand.nextInt(2 + 1);
 
-        return 1;
+        return input;
     }
 
     public void startFight(Cnpc Player1, CMonster Player2){
 
-        System.out.println("---------------");
+        System.out.println("--------------");
         System.out.println("Started Fight!");
 
+
         CGegenstand lastItemPlayer1 = itemAuswahl(Player1.getBp());
+        System.out.println("1");
         CGegenstand lastItemPlayer2 = Player2.getWaffe();
+        System.out.println("2");
+
+
 
         do{
             
             int wertPlayer1 = klassenAuswahl(lastItemPlayer1);
-            int wertPlayer2 = klassenAuswahl(lastItemPlayer2);
+            int wertPlayer2 = klassenAuswahlMonster(lastItemPlayer2);
 
             if(wertPlayer1 < wertPlayer2){System.out.println("Spieler 2 hat Gewonnen");}
             else if(wertPlayer1 > wertPlayer2){System.out.println("Spieler 1 hat Gewonnen");}
