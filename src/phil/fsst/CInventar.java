@@ -7,16 +7,16 @@ public class CInventar {
 
     public CGegenstand[] bp;
 
-
-
-
     public void PrintInv(){
-
         for(int i = 0; i < bp.length; i++){
 
-            if(bp[i] != null) System.out.println(bp[i].getBZ());
+            if(bp[i] != null) System.out.println("["+ i +"]: " +bp[i].getBZ());
         }
+    }
 
+    public CGegenstand fetchItem(CInventar Inventar, int InvPlatz) {
+        CGegenstand returnItem = bp[InvPlatz];
+        return returnItem;
     }
 
     public CInventar() {
@@ -31,16 +31,15 @@ public class CInventar {
         gew = gewicht;
     }
 
-  /*  public void creatInv(){
-        CGegenstand[] bp = new CGegenstand[place];
-    } */
-
-     public void ItemIntoInv(CGegenstand item) {
-
+    public void ItemIntoInv(CGegenstand item) {
         if ((checkSpaceAvalible(item)) && (checkWeightAvalible(item))) {
-            bp[naechsterFreierInventarplatz] = item;
+            try{
+                bp[naechsterFreierInventarplatz] = item;
+            }
+            catch(IllegalAccessError z){
+                System.out.println("Fehler beim Schreiben in das Inventar");
+            }
         }
-
     }
 
     public boolean checkSpaceAvalible(CGegenstand item) {
@@ -56,7 +55,6 @@ public class CInventar {
 
         return spaceAvalible;
     }
-
 
     public boolean checkWeightAvalible(CGegenstand item) {
         boolean notOverweight = false;
@@ -76,10 +74,7 @@ public class CInventar {
             try {
             }
             catch (IllegalArgumentException k){
-
             }
-
-
         }
 
         return notOverweight;
