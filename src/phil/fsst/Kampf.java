@@ -1,5 +1,6 @@
 package phil.fsst;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 import static java.lang.Math.random;
@@ -7,11 +8,11 @@ import static java.lang.Math.random;
 public class Kampf{
 
 
-    public boolean usedAgriff = false;
+    public boolean usedAngriff = false;
     public boolean usedVerteidigung = false;
     public boolean usedHeilwert = false;
     public Scanner scan = new Scanner(System.in);
-    Random rand;
+
 
 
 
@@ -23,14 +24,11 @@ public class Kampf{
     }
     
     private CGegenstand itemAuswahl(CInventar userInventory){
-
+        System.out.println("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+        System.out.println("Wähle ein Item aus deinem Rucksack!");
         userInventory.PrintInv();
-
         int ItemAuswahl = scan.nextInt();
-        CGegenstand KampfItem = new CGegenstand();
-
-        KampfItem = userInventory.bp[ItemAuswahl];
-
+        CGegenstand KampfItem = userInventory.bp[ItemAuswahl];
         userInventory.PrintInv();
 
         return KampfItem;
@@ -44,7 +42,9 @@ public class Kampf{
 
         int[] Auswahl = {AGW,VTW,HW};
 
-        if(!usedAgriff)System.out.println("[0] Angriffswert: "  + Auswahl[0]);
+        System.out.println("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+
+        if (!usedAngriff) System.out.println("[0] Angriffswert: " + Auswahl[0]);
         if(!usedVerteidigung)System.out.println("[1] Verteidigung: "  + Auswahl[1]);
         if(!usedHeilwert)System.out.println("[2] Heilwert: "  + Auswahl[2]);
 
@@ -52,9 +52,24 @@ public class Kampf{
 
         int input = scan.nextInt();
 
-        if(input == 0 && !usedAgriff)return KampfItem.getAGW(); //Spieler hat Angriff gewäht und noch nicht verbraucht
-        if(input == 1 && !usedVerteidigung)return KampfItem.getVTW(); //Spieler hat Verteidigung gewählt und noch nicht verbraucht
-        if(input == 2 && !usedHeilwert)return KampfItem.getHW(); //Spieler hat Heilung gewählt und noch nicht verbraucht
+        if (input == 0 && !usedAngriff) {
+            usedAngriff = true;
+            return KampfItem.getAGW();
+        } //Spieler hat Angriff gewäht und noch nicht verbraucht
+        if (input == 1 && !usedVerteidigung) {
+            usedVerteidigung = true;
+            return KampfItem.getVTW();
+        } //Spieler hat Verteidigung gewählt und noch nicht verbraucht
+        if (input == 2 && !usedHeilwert) {
+            usedHeilwert = true;
+            return KampfItem.getHW();
+        } //Spieler hat Heilung gewählt und noch nicht verbraucht
+
+        if (usedHeilwert && usedVerteidigung && usedAngriff) {
+            usedAngriff = false;
+            usedHeilwert = false;
+            usedVerteidigung = false;
+        }
 
         return input;
     }
@@ -65,16 +80,27 @@ public class Kampf{
         int VTW = KampfItem.getVTW();
         int HW = KampfItem.getHW();
 
-        int input = rand.nextInt(2 + 1);
+        Random rand = new Random();
 
-        return input;
+        int input = rand.nextInt(2) + 1;
+
+        switch (input) {
+            case 0:
+                return AGW;
+            case 1:
+                return VTW;
+            case 2:
+                return HW;
+        }
+
+
+        System.out.println("Error");
+        return -1;
     }
-
     public void startFight(Cnpc Player1, CMonster Player2){
 
-        System.out.println("--------------");
-        System.out.println("Started Fight!");
-
+        System.out.println("-+-+-+-+-+-+-+-+-");
+        System.out.println(Player1.getNamen() + " vs. " + Player2.getNamen());
 
         CGegenstand lastItemPlayer1 = itemAuswahl(Player1.getBp());
         System.out.println("1");
@@ -82,17 +108,29 @@ public class Kampf{
         System.out.println("2");
 
 
+        while (true) {
+            //Auswahl und Abgreifen der Werte über die klassenAuswahl Method
 
-        do{
-            
             int wertPlayer1 = klassenAuswahl(lastItemPlayer1);
             int wertPlayer2 = klassenAuswahlMonster(lastItemPlayer2);
 
-            if(wertPlayer1 < wertPlayer2){System.out.println("Spieler 2 hat Gewonnen");}
-            else if(wertPlayer1 > wertPlayer2){System.out.println("Spieler 1 hat Gewonnen");}
-            else if(wertPlayer1 == wertPlayer2){System.out.println("Unendschieden!");}
-            
-            
-        }while(Player1.getLeben() <= 0 || Player2.getLeben() <= 0);
+            // Printen der Player Werte
+
+            System.out.println("Player1: " + wertPlayer1 + " vs. Player2: " + wertPlayer2);
+            System.out.println("-+-+-+-+-+-+-+-+-+-");
+            if (wertPlayer1 < wertPlayer2) {
+                System.out.println("Spieler 2 hat Gewonnen. \n -+-+-+-+-+-+-+-+-+- \n Du hast 20 Leben verlohren.");
+                Player2.setLeben(Player2.getLeben() - 20);
+            }
+            if (wertPlayer1 > wertPlayer2) {
+                System.out.println("Spieler 1 hat Gewonnen. \n -+-+-+-+-+-+-+-+-+- \n Dein gegner hat 20 Leben verloren.");
+                Player1.setLeben(Player1.getLeben() - 20);
+            }
+            if (wertPlayer1 == wertPlayer2) {
+                System.out.println("Unendschieden!");
+            }
+
+            if (Player1.getLeben() <= 0 || Player2.getLeben() <= 0) break;
+        }
     }
 }

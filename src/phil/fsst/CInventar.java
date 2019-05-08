@@ -71,11 +71,6 @@ public class CInventar {
             if (gesamtGewicht <= gew) {
                 notOverweight = true;
             }
-
-            try {
-            }
-            catch (IllegalArgumentException k){
-            }
         }
 
         return notOverweight;
