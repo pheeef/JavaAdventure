@@ -1,9 +1,5 @@
 package phil.fsst;
 
-
-import javax.naming.Name;
-import javax.naming.NameNotFoundException;
-
 public class CMonster{
     public String Namen = "";
     public int MaxLeben = 100; //Maximal des erreichbaren Leben
