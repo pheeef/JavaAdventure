@@ -36,6 +36,15 @@ public class Kampf{
     
     public int klassenAuswahl (CGegenstand KampfItem){
 
+        if (usedHeilwert && usedVerteidigung && usedAngriff) {
+
+            System.out.println("Ausgeführt");
+
+            usedAngriff = false;
+            usedHeilwert = false;
+            usedVerteidigung = false;
+        }
+
         int AGW = KampfItem.getAGW();
         int VTW = KampfItem.getVTW();
         int HW = KampfItem.getHW();
@@ -65,11 +74,7 @@ public class Kampf{
             return KampfItem.getHW();
         } //Spieler hat Heilung gewählt und noch nicht verbraucht
 
-        if (usedHeilwert && usedVerteidigung && usedAngriff) {
-            usedAngriff = false;
-            usedHeilwert = false;
-            usedVerteidigung = false;
-        }
+
 
         return input;
     }
@@ -130,7 +135,13 @@ public class Kampf{
                 System.out.println("Unendschieden!");
             }
 
-            if (Player1.getLeben() <= 0 || Player2.getLeben() <= 0) break;
+            if (Player1.getLeben() <= 0) {
+                System.out.println("Gratulation! Du hast gegen " + Player2.getNamen() + " gewonnen!");
+                break;
+            } else if (Player2.getLeben() <= 0) {
+                System.out.println("Verflixt und Zugenäht! Du hast gegen " + Player2.getNamen() + " verloren!");
+                break;
+            }
         }
     }
 }

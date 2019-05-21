@@ -1,13 +1,12 @@
 package phil.fsst;
 
 public class CMonster{
-    public String Namen = "";
+    public String Namen = "String";
     public int MaxLeben = 100; //Maximal des erreichbaren Leben
     public int Leben = 0; //Leben eines Monsters
     public double expiriencePoints = 0; //Punkte um Level aufzusteigen
     public int Level = 0; //Level vom Vieh
     public CGegenstand Waffe;
-
 
     public CMonster(String Namen, int MaxLeben, int Leben, CGegenstand Waffe,int Level) {
         this.Namen = Namen;
@@ -18,7 +17,6 @@ public class CMonster{
 
     }
 
-    @Override
     public String toString() {
         return  "Name: " + Namen +
                 " \nMaxLeben: " + MaxLeben +
